@@ -1,6 +1,6 @@
-from sympy import symbols, expand, Poly, factor
+# x^(n) represents the falling factorial while x^{n} or x^n represents a normal power.
 
-"""x^(n) represents the falling factorial while x^{n} or x^n represents a normal power."""
+from sympy import symbols, expand, Poly, factor
 
 def falling_factorial(x, m):
     """Computes x^(m)"""
@@ -27,7 +27,7 @@ def power_to_falling_factorials_coeffs(a):
         c = Poly(expand(remainder), k).nth(falling_exponent)
         coeffs[falling_exponent] = c
 
-        #Subtract the contribution from the entire falling factorial we just matched.
+        # Subtract the contribution from the entire falling factorial we just matched.
         remainder = expand(remainder - c * falling_factorial(k, falling_exponent))
 
     return coeffs
@@ -36,10 +36,10 @@ def power_to_falling_factorials_coeffs(a):
 def sum_falling_factorial(n, m):
     """
     Computes the sum from 1 to n of k^(m) using the antidifference.
-    Since the antidiffernece of k^(m) is k^(m+1) / (m+1) The sum is given by 
+    Since the antidifference of k^(m) is k^(m+1) / (m+1), the sum is given by
     sum_{k=1}^{n} k^(m) = (n+1)^(m+1) / (m+1) - 1^(m+1) / (m+1)
                         = (n+1)^(m+1) / (m+1)
-    Note that 1^(n) = 0 for n > 1.
+    Note that 1^(m+1) = 0 for m >= 1, since one of the factors in the product will be 0.
     """
     return falling_factorial(n + 1, m + 1) / (m + 1)
 
