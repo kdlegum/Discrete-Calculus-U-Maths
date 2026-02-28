@@ -7,7 +7,7 @@ Welcome! This repository contains the detailed solutions to the challenges posed
 ## Challenge 1: Summation by Parts
 
 **The Problem:** 
-> Show that $\Delta(u_n v_n) = u_{n+1}\Delta v_n + v_n \Delta u_n$. Use this to derive the "Summation by Parts" formula: $\sum u_n \Delta v_n = u_n v_n - \sum v_{n+1} \Delta u_n$.
+> Show that $\Delta(u_n v_n) = v_{n+1}\Delta u_n + u_n \Delta v_n$. Use this to derive the "Summation by Parts" formula: $\sum u_n \Delta v_n = u_n v_n - \sum v_{n+1} \Delta u_n$.
 
 ### Part 1: The Discrete Product Rule
 In continuous calculus, the product rule is $(uv)' = u'v + uv'$. Let's see what happens when we apply the forward difference operator $\Delta$ to a product of two sequences, $u_n$ and $v_n$.
@@ -18,43 +18,36 @@ $$
 \Delta(u_n v_n) = u_{n+1}v_{n+1} - u_n v_n
 $$
 
-To make this look like the difference operator, we need to add and subtract $u_{n+1}v_n$ in the middle of the expression.
+To make this look like the difference operator, we need to add and subtract $u_n v_{n+1}$ in the middle of the expression.
 
 $$
-\Delta(u_n v_n) = u_{n+1}v_{n+1} - u_{n+1}v_n + u_{n+1}v_n - u_n v_n
+\Delta(u_n v_n) = u_{n+1}v_{n+1} - u_n v_{n+1} + u_n v_{n+1} - u_n v_n
 $$
 
 Now, factorise:
 
 $$
-\Delta(u_n v_n) = u_{n+1}(v_{n+1} - v_n) + v_n(u_{n+1} - u_n)
+\Delta(u_n v_n) = v_{n+1}(u_{n+1} - u_n) + u_n(v_{n+1} - v_n)
 $$
 
-Recognising the definitions of $\Delta v_n$ and $\Delta u_n$, we get:
+Recognising the definitions of $\Delta u_n$ and $\Delta v_n$, we get:
 
 $$
-\Delta(u_n v_n) = u_{n+1}\Delta v_n + v_n \Delta u_n
+\Delta(u_n v_n) = v_{n+1}\Delta u_n + u_n \Delta v_n
 $$
 
-You could have also added and subtracted $u_n v_{n+1}$ to get another valid form.
 
 ### Part 2: Deriving Summation by Parts
-To get the summation by parts formula, we simply take the definite sum from $k=1$ to $n$ of the alternate form we just mentioned ($\Delta(u_k v_k) = u_k \Delta v_k + v_{k+1}\Delta u_k$):
+To derive the summation by parts formula, we take the antidifference of both sides of the result above (using $\sum \Delta f(n) = f(n)$):
 
 $$
-\sum_{k=1}^n \Delta(u_k v_k) = \sum_{k=1}^n u_k \Delta v_k + \sum_{k=1}^n v_{k+1}\Delta u_k
+u_n v_n = \sum v_{n+1}\Delta u_n + \sum u_n \Delta v_n
 $$
 
-By the Fundamental Theorem of Discrete Calculus, the left side telescopes:
+Rearranging to isolate $\sum u_n \Delta v_n$ gives us our final formula:
 
 $$
-[u_k v_k]_{1}^{n+1} = \sum_{k=1}^n u_k \Delta v_k + \sum_{k=1}^n v_{k+1}\Delta u_k
-$$
-
-Rearranging to isolate $\sum u_k \Delta v_k$ gives us our final formula:
-
-$$
-\sum_{k=1}^n u_k \Delta v_k = [u_k v_k]_{1}^{n+1} - \sum_{k=1}^n v_{k+1} \Delta u_k
+\sum u_n \Delta v_n = u_n v_n - \sum v_{n+1} \Delta u_n
 $$
 
 ---
@@ -150,6 +143,8 @@ Now we can expand $k^{\underline{a}}$, and then the only term that we can contro
 
 Clearly, we will be able to continue doing this until we've found all of the coefficients $c_a$.
 
+An implementation of this in python is in this repo.
+
 ### Notes
 
 A linear system with this structure — where you can solve for each coefficient one at a time by matching terms — is called **triangular**.
@@ -164,10 +159,4 @@ $$
 
 where $B_j$ are the Bernoulli numbers (with the convention $B_1 = +\frac{1}{2}$).
 
-You can also write it directly in terms of falling factorials (closer to the approach in this solution):
-
-$$
-\sum_{k=1}^{n} k^a = \sum_{m=0}^{a} \left( \frac{1}{(m+1)m!} \sum_{j=0}^{m} (-1)^{m-j} \binom{m}{j} j^a \right) (n+1)^{\underline{m+1}}
-$$
-
-There are a lot of crazy looking solutions on the [Faulhaber's formula Wikipedia page](https://en.wikipedia.org/wiki/Faulhaber%27s_formula).
+There are also a lot of crazy looking solutions on the [Faulhaber's formula Wikipedia page](https://en.wikipedia.org/wiki/Faulhaber%27s_formula).
