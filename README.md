@@ -38,7 +38,7 @@ $$
 
 
 ### Part 2: Deriving Summation by Parts
-To derive the summation by parts formula, we take the antidifference of both sides of the result above (using $\sum \Delta f(n) = f(n)$):
+To derive the summation by parts formula, we take the antidifference of both sides of the result above:
 
 $$
 u_n v_n = \sum v_{n+1}\Delta u_n + \sum u_n \Delta v_n
@@ -61,7 +61,7 @@ In continuous calculus, integrating $\int x e^x \ dx$ requires Integration by Pa
 
 Let's choose u and v:
 * Let $u_k = k \implies \Delta u_k = 1$
-* Let $\Delta v_k = 2^k \implies v_k = 2^k$ (Using the fact that $\Delta 2^k = 2^k$)
+* Let $\Delta v_k = 2^k \implies v_k = 2^k$ (Using the fact that $ \Delta 2^k = 2^k $ )
 
 Notice that our formula requires $v_{k+1}$. If $v_k = 2^k$, then $v_{k+1} = 2^{k+1}$.
 
@@ -154,7 +154,7 @@ The coefficients you've solved for are a famous result from combinatorics, calle
 The closed form solution to the original problem is called **Faulhaber's formula** or sometimes Bernoulli's formula, which is usually presented as:
 
 $$
-\sum_{k=1}^{n} k^p = \frac{1}{p+1} \sum_{j=0}^{p} \binom{p+1}{j} B_j \, n^{p+1-j}
+\sum_{k=1}^{n} k^p = \frac{1}{p+1} \sum_{j=0}^{p} \binom{p+1}{j} B_j \ n^{p+1-j}
 $$
 
 where $B_j$ are the Bernoulli numbers (with the convention $B_1 = +\frac{1}{2}$).
